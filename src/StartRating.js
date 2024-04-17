@@ -36,6 +36,7 @@ export default function StarRating({
   function handleRating(rating) {
     setRating(rating);
     onSetRating(rating);
+    onSetRating(rating);
   }
 
   const textStyle = {
@@ -45,7 +46,16 @@ export default function StarRating({
     fontSize: `${size / 1.5}px`,
   };
 
+
+  const textStyle = {
+    lineHeight: "1",
+    margin: "0",
+    color,
+    fontSize: `${size / 1.5}px`,
+  };
+
   return (
+    <div style={containerStyle} className={className}>
     <div style={containerStyle} className={className}>
       <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
@@ -60,6 +70,11 @@ export default function StarRating({
           />
         ))}
       </div>
+      <p style={textStyle}>
+        {messages.length === maxRating
+          ? messages[tempRating ? tempRating - 1 : rating - 1]
+          : tempRating || rating || ""}
+      </p>
       <p style={textStyle}>
         {messages.length === maxRating
           ? messages[tempRating ? tempRating - 1 : rating - 1]
@@ -85,10 +100,19 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
       onMouseEnter={onHoverIn}
       onMouseLeave={onHoverOut}
     >
+    <span
+      role="button"
+      style={starStyle}
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {full ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
+          fill={color}
+          stroke={color}
           fill={color}
           stroke={color}
         >
@@ -99,6 +123,7 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
+          stroke={color}
           stroke={color}
         >
           <path
